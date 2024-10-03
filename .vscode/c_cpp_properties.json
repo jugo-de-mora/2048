@@ -4,7 +4,7 @@
             "name": "Win32",
             "includePath": [
                 "${workspaceFolder}/**",
-                "C:/Users/jsegu/Downloads/C_C++ Libraries/raylib/raylib-5.0_win64_mingw-w64/include"
+                // Add Raylib include path here
             ],
             "defines": [
                 "_DEBUG",
