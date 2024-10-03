@@ -1,18 +1,3 @@
-/*******************************************************************************************
- *
- *   raylib [core] examples - basic screen manager
- *
- *   NOTE: This example illustrates a very simple screen manager based on a states machines
- *
- *   Example originally created with raylib 4.0, last time updated with raylib 4.0
- *
- *   Example licensed under an unmodified zlib/libpng license, which is an OSI-certified,
- *   BSD-like license that allows static linking with closed source software
- *
- *   Copyright (c) 2021-2024 Ramon Santamaria (@raysan5)
- *
- ********************************************************************************************/
-
 #include "raylib.h"
 #include "stdio.h"
 #include "stdlib.h"
@@ -42,14 +27,8 @@
 #define COLOR_1024 (Color){232, 193, 62, 255}
 #define COLOR_2048 (Color){237, 194, 45, 255}
 
-// FUNCTION SIGNATURES
-
 void initialize(int board[4][4]);
 void display(int board[TILES][TILES]);
-
-//------------------------------------------------------------------------------------------
-// Types and Structures Definition
-//------------------------------------------------------------------------------------------
 
 typedef enum GameScreen
 {
@@ -384,9 +363,6 @@ void ribbon(char* text, int quantity, float timeElapsed)
 
 int main(void)
 {
-    // Initialization
-    //--------------------------------------------------------------------------------------
-
     InitWindow(SCREENWIDTH, SCREENHEIGHT, "MY 2048 BABY!!!");
 
     GameScreen currentScreen = LOGO;
@@ -396,7 +372,6 @@ int main(void)
     int framesCounter = 0; // Useful to count frames
 
     SetTargetFPS(60); // Set desired framerate (frames-per-second)
-    //--------------------------------------------------------------------------------------
 
     int board[TILES][TILES];
     initialize(board);
@@ -405,22 +380,15 @@ int main(void)
 
     Vector2 clickPosition = (Vector2){0, 0};
     float timeElapsed = 0;
-    //--------------------------------------------------------------------------------------
 
-    // Main game loop
     while (!WindowShouldClose()) // Detect window close button or ESC key
     {
-        // Update
-        //----------------------------------------------------------------------------------
         switch (currentScreen)
         {
         case LOGO:
         {
-            // TODO: Update LOGO screen variables here!
-
             framesCounter++; // Count frames
 
-            // Wait for 2 seconds (120 frames) before jumping to TITLE screen
             if (framesCounter > 0)
             {
                 currentScreen = TITLE;
@@ -429,8 +397,6 @@ int main(void)
         break;
         case TITLE:
         {
-            // TODO: Update TITLE screen variables here!
-
             // Press enter to change to GAMEPLAY screen
             if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
             {
@@ -440,14 +406,6 @@ int main(void)
         break;
         case GAMEPLAY:
         {
-            // TODO: Update GAMEPLAY screen variables here!
-
-            // Press enter to change to ENDING screen
-            // if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
-            // {
-            //     currentScreen = ENDING;
-            // }
-
             if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT))
             {
                 int x = 0, y = 0;
@@ -484,8 +442,6 @@ int main(void)
         break;
         case ENDING:
         {
-            // TODO: Update ENDING screen variables here!
-
             // Press enter to return to TITLE screen
             if (IsKeyPressed(KEY_ENTER) || IsGestureDetected(GESTURE_TAP))
             {
@@ -496,10 +452,7 @@ int main(void)
         default:
             break;
         }
-        //----------------------------------------------------------------------------------
 
-        // Draw
-        //----------------------------------------------------------------------------------
         BeginDrawing();
 
         ClearBackground(RAYWHITE);
@@ -609,8 +562,6 @@ int main(void)
             }
             timeElapsed += GetFrameTime();
             // printf("%d\n", lerp((double) -1 * strlen("2048") * 20.0, 800, animate2048(timeElapsed / 10.0)));
-            // DrawText("2048", lerp(0, 800, easeOut(timeElapsed / 10.0)), 20, 40, FOREGROUND);
-            // DrawText(textToDisplay, lerp((double) -1 * strlen(textToDisplay) * 20.0, 800, animate2048(timeElapsed / 10.0)), 20, 40, FOREGROUND);
             ribbon("2048", 4, timeElapsed);
             
             DrawText("PRESS ENTER or TAP to JUMP to ENDING SCREEN", 20, 550, 30, FOREGROUND);
@@ -629,16 +580,12 @@ int main(void)
         }
 
         EndDrawing();
-        //----------------------------------------------------------------------------------
     }
 
     // De-Initialization
-    //--------------------------------------------------------------------------------------
 
     // TODO: Unload all loaded data (textures, fonts, audio) here!
 
     CloseWindow(); // Close window and OpenGL context
-    //--------------------------------------------------------------------------------------
-
     return 0;
 }
