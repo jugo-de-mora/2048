@@ -11,9 +11,9 @@
             "-o",
             "${fileDirname}\\${fileBasenameNoExtension}.exe",
             "-I",
-            "C:/Users/jsegu/Downloads/C_C++ Libraries/raylib/raylib-5.0_win64_mingw-w64/include",
+            // Add Raylib include path here
             "-L",
-            "C:/Users/jsegu/Downloads/C_C++ Libraries/raylib/raylib-5.0_win64_mingw-w64/lib",
+            // Add Raylib lib path here
             "-lraylib",
             "-lmingw32",
             "-lopengl32",
