@@ -104,6 +104,7 @@ void display(int board[TILES][TILES])
 void left(int board[TILES][TILES])
 {
     bool changeMade = false;
+    // Mezclar los números
     for (size_t i = 0; i < TILES; i++)
     {
         bool zeroFound = false;
@@ -131,6 +132,7 @@ void left(int board[TILES][TILES])
         }
     }
 
+    // Mover los números
     for (size_t i = 0; i < TILES; i++)
     {
         bool zeroFound = false;
@@ -380,6 +382,14 @@ int main(void)
 
     Vector2 clickPosition = (Vector2){0, 0};
     float timeElapsed = 0;
+    enum Movement
+    {
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT
+    };
+    enum Movement m;
 
     while (!WindowShouldClose()) // Detect window close button or ESC key
     {
@@ -421,18 +431,22 @@ int main(void)
             if (IsKeyPressed(KEY_W) || IsKeyPressed(KEY_UP))
             {
                 up(board);
+                m = UP;
             }
             if (IsKeyPressed(KEY_A) || IsKeyPressed(KEY_LEFT))
             {
                 left(board);
+                m = LEFT;
             }
             if (IsKeyPressed(KEY_S) || IsKeyPressed(KEY_DOWN))
             {
                 down(board);
+                m = DOWN;
             }
             if (IsKeyPressed(KEY_D) || IsKeyPressed(KEY_RIGHT))
             {
                 right(board);
+                m = RIGHT;
             }
             if (IsKeyPressed(KEY_ENTER))
             {
@@ -476,6 +490,7 @@ int main(void)
         break;
         case GAMEPLAY:
         {
+            timeElapsed += GetFrameTime();
             // TODO: Draw GAMEPLAY screen here!
             DrawRectangle(0, 0, SCREENWIDTH, SCREENHEIGHT, BACKGROUND);
             // Cada celda es de 100 x 100
@@ -546,6 +561,25 @@ int main(void)
                             background_squares = (Color){0,0,0,255};
                             break;
                         }
+                        switch (m)
+                        {
+                        case UP:
+                            DrawRectangle((SCREENWIDTH - BOARDWIDTH) / 2 + (BOARDWIDTH / TILES) * j + 1,
+                                      100 + (BOARDHEIGHT / TILES) * i + 1,
+                                      BOARDWIDTH / TILES - 3,
+                                      BOARDHEIGHT / TILES - 3,
+                                      background_squares);
+                            break;
+                        case DOWN:
+                            break;
+                        case LEFT:
+                            break;
+                        case RIGHT:
+                            break;
+                        
+                        default:
+                            break;
+                        }
                         DrawRectangle((SCREENWIDTH - BOARDWIDTH) / 2 + (BOARDWIDTH / TILES) * j + 1,
                                       100 + (BOARDHEIGHT / TILES) * i + 1,
                                       BOARDWIDTH / TILES - 3,
@@ -560,7 +594,6 @@ int main(void)
                     }
                 }
             }
-            timeElapsed += GetFrameTime();
             // printf("%d\n", lerp((double) -1 * strlen("2048") * 20.0, 800, animate2048(timeElapsed / 10.0)));
             ribbon("2048", 4, timeElapsed);
             
